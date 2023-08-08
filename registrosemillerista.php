@@ -114,10 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // En este punto, todas las validaciones pasaron
 
         // Se encripta la contraseña
-        $passwordhash = password_hash($contrasena, PASSWORD_DEFAULT);
+        //$passwordhash = password_hash($contrasena, PASSWORD_DEFAULT);
 
         // Se ingresa la información a la base de datos
-        $sql = "INSERT INTO semillerista VALUES ('$nombres', '$identificacion', '$passwordhash', '$codigoestudiantil', '$direccion', '$telefono', '$email', '$genero', '$fechanacimiento', '$semestre', '$codigomatricula', '$programaacademico', '$fechavinculacion', '$estado')";
+        $sql = "INSERT INTO semillerista VALUES ('$nombres', '$identificacion', '$contrasena', '$codigoestudiantil', '$direccion', '$telefono', '$email', '$genero', '$fechanacimiento', '$semestre', '$codigomatricula', '$programaacademico', '$fechavinculacion', '$estado')";
 
         if ($conn->query($sql) === TRUE) {
             echo 'semillerista registrado satisfactoriamente';
