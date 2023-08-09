@@ -14,12 +14,12 @@ $validar_login = mysqli_query($conexion,"SELECT * FROM semillerista WHERE identi
 
 if(mysqli_num_rows($validar_login) > 0){
     $_SESSION['usuario'] = $identificacion;
-    include 'loginsemillero.html';
+    include 'infpersonal.php';
 }else{
     echo '
     <script>
         alert("Usuario no existe, por favor verifique los datos");
-        window.location = "../login.php"
+        window.location = "./loginsemillero.html"
     </script>
     ';
     exit;
