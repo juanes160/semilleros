@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+
+
+
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -223,7 +228,13 @@ $conexion=mysqli_connect('localhost', 'root', '', 'semillerosudenar');
 
 </html>
 
-<h1>Semillero</h1>
+<div>
+<p>.<p>
+<p>.<p>
+<p>.<p>
+
+
+<p><p><h1>Semillero</h1><p><p>
 
 <!DOCTYPE html>
 <html>
@@ -459,15 +470,6 @@ $conexion=mysqli_connect('localhost', 'root', '', 'semillerosudenar');
 ?>
 
 
-
-</body>
-
-</html>
-
- </html>
-
- </body>
-
 <h1>PROYECTOS</h1>
 
 <!DOCTYPE html>
@@ -515,8 +517,104 @@ $conexion=mysqli_connect('localhost', 'root', '', 'semillerosudenar');
   </table> 
   </body>
 
+
+
+
+
+
+
+  
+
+</body>
+
+</html>
+
+
+
+
   <p> <a class="link" href="proyecto.html">Registrar Proyecto</a></p>
   <div>
+  <p> <a class="link" href="eliminarproyecto.php">Eliminar Proyecto</a></p>
+  <div>
+
+  <h1>Modificar Información Proyecto</h1>
+
+  <form action="modinfopro.php" method="post">
+
+    
+
+    <?php
+    // Conexión a la base de datos
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "semillerosudenar";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+
+
+    // Obtener información del usuario
+    $consulta ="SELECT * FROM proyecto ";
+    $sql = "SELECT titulo,tipoproyecto,estado,fechainicio,fechafinalizacion,propuesta FROM proyecto "; // Cambia el id o la condición según tus necesidades
+    $result = $conn->query($sql);
+
+
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $titulo = $row["titulo"];
+        $tipoproyecto = $row["tipoproyecto"];
+        $estado = $row["estado"];
+        $fechainicio = $row["fechainicio"];
+        $fechafinalizacion = $row["fechafinalizacion"];
+        $propuesta = $row["propuesta"];   
+
+    ?>
+
+    <ul class="menu">
+
+
+    <label for="titulo">Titulo:</label>
+    <input type="text" id="titulo" name="titulo" value="<?php echo $titulo; ?>"><br><br>
+
+    <label for="tipoproyecto">Tipo: </label>
+    <input type="text" id="tipoproyecto" name="tipoproyecto" value="<?php echo $tipoproyecto; ?>"><br><br>
+
+    <label for="estado">Estado: </label>
+    <input type="text" id="estado" name="estado" value="<?php echo $estado; ?>"><br><br>
+
+    <label for="fechainicio">Fecha inicio: </label>
+    <input type="date" id="fechainicio" name="fechainicio" value="<?php echo $fechainicio; ?>"><br><br>
+
+    <label for="fechafinalizacion">Fecha fin: </label>
+    <input type="date" id="fechafinalizacion" name="fechafinalizacion" value="<?php echo $fechafinalizacion; ?>"><br><br>
+
+    <label for="propuesta">Propuesta: </label>
+    <input type="text" id="propuesta" name="propuesta" value="<?php echo $propuesta; ?>"><br><br>
+
+    <ul class="centrado">
+    <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Guardar Cambios</button>
+
+    
+
+
+
+    <?php
+} else {
+    echo "Usuario no encontrado";
+}
+
+?>
+
+</form>
+
+
+
   <p><strong>---------------------------------------------------------------------------------------------------</strong><p>
   <div>
   <p><strong>BEOWULF SOFTWARE</strong><p>

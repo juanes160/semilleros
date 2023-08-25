@@ -2,7 +2,7 @@
 
 session_start();
 
-$identificacion=$_SESSION['identificacion'];
+$identificacion=$_SESSION['id'];
 // Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -17,17 +17,17 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombreusu = $_POST["nombre"];
-    $direccionusu = $_POST["direccion"];
-    $telefonousu = $_POST["telefono"];
-    $emailusu = $_POST["email"];
-    $generousu = $_POST["genero"];
-    $prog_acadusu = $_POST["prog_acad"];
-    $area_cousu = $_POST["area_co"];
-
+    $nombre = $_POST["nombre"];
+    $email = $_POST["email"];
+    $direccion = $_POST["direccion"];
+    $telefono = $_POST["telefono"];
+    $genero = $_POST["genero"];
+    $semestre = $_POST["semestre"];
+    $prog_acad = $_POST["prog_acad"];
+    $estado = $_POST["estado"];
 
     // Actualizar la información en la base de datos
-    $sql = "UPDATE coordinador SET nombres_completos='$nombreusu',direccion='$direccionusu',telefono='$telefonousu',correo_electronico='$emailusu',genero='$generousu',programa_academico='$prog_acadusu',area_conocimiento='$area_cousu' WHERE identificacion=$identificacion"; // Cambia 'tabla_de_usuarios' y 'id' según tu estructura
+    $sql = "UPDATE semillerista SET nombres_completos='$nombre',direccion='$direccion',telefono='$telefono',correo='$email',genero='$genero',semestre='$semestre',programa_academico='$prog_acad',estado='$estado' WHERE identificacion=$identificacion"; // Cambia 'tabla_de_usuarios' y 'id' según tu estructura
 
     if ($conn->query($sql) === TRUE) {
         echo "Información actualizada exitosamente";
