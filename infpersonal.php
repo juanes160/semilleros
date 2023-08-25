@@ -2,24 +2,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="estilo1.css">
+        <link rel="stylesheet" type="text/css" href="Estilo.css">
 
         <style>
         .menu{
 	        list-style: none;
 	        padding: 0;
-	        background: #798081;
+	        background: #d6e8f8;
 	        width: 90%;
-	        max-width: 1000px;
+	        max-width: 800px;
 	        margin: auto;
             }
+
+   
+        .centrado {
+            text-align: center;
+            font-weight: bold; /* Agregamos negrita */
+            font-size: 30px; /* Tamaño de fuente más grande */
+            }
+
         
         </style>
 
        </head>
        <body>
         <ul class="menu">
-            <li><a href = "#">Información Personal y perfil(consultar)</a></li>
+            
 
 
             <?php
@@ -61,184 +69,105 @@ if ($result->num_rows > 0) {
     $fecha_vincu = $row['fecha_de_vinculacion'];
     $estado = $row['estado'];
 ?>
-<h1>Información del Usuario</h1>
+
+
+<p class="centrado">BIENVENIDO SEMILLERISTA</p>
+<div>
+
+
+
+<h1>Información del semillerista</h1>
+
     <p><strong>Nombre:</strong> <?php echo $nombreUsuario; ?></p>
     <p><strong>Email:</strong> <?php echo $emailUsuario; ?></p>
-    <p><strong>idUsuario:</strong> <?php echo $idUsuario; ?></p>
-    <p><strong>codigo Estudiantil:</strong> <?php echo $codigo_est; ?></p>
-    <p><strong>direccion:</strong> <?php echo $direccion; ?></p>
-    <p><strong>telefono:</strong> <?php echo $telefono; ?></p>
-    <p><strong>genero:</strong> <?php echo $genero; ?></p>
-    <p><strong>semestre:</strong> <?php echo $semestre; ?></p>
-    <p><strong>codigo matricula:</strong> <?php echo $cod_matricula; ?></p>
-    <p><strong>programa academico:</strong> <?php echo $prog_acad; ?></p>
-    <p><strong>estado:</strong> <?php echo $estado; ?></p>
+    <p><strong>Identificación:</strong> <?php echo $idUsuario; ?></p>
+    <p><strong>Codigo Estudiantil:</strong> <?php echo $codigo_est; ?></p>
+    <p><strong>Direccion:</strong> <?php echo $direccion; ?></p>
+    <p><strong>Telefono:</strong> <?php echo $telefono; ?></p>
+    <p><strong>Genero:</strong> <?php echo $genero; ?></p>
+    <p><strong>Semestre:</strong> <?php echo $semestre; ?></p>
+    <p><strong>Codigo matricula:</strong> <?php echo $cod_matricula; ?></p>
+    <p><strong>Programa academico:</strong> <?php echo $prog_acad; ?></p>
+    <p><strong>Estado:</strong> <?php echo $estado; ?></p>
+
+    <h1>Modificar Información Personal</h1>
+
+<form action="modificarinfopersonal.php" method="post">
+
+    
+
+    <?php
+    // Conexión a la base de datos
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "semillerosudenar";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+
+    // Obtener información del usuario
+    $consulta ="SELECT * FROM semillerista where identificacion=$usuario and contrasena=$contrasena";
+    $sql = "SELECT nombres_completos,correo,direccion,telefono,genero,semestre,programa_academico,estado FROM semillerista WHERE identificacion = $usuario"; // Cambia el id o la condición según tus necesidades
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $nombre = $row["nombres_completos"];
+        $email = $row["correo"];
+        $direccion = $row["direccion"];
+        $telefono = $row["telefono"];
+        $genero = $row["genero"];
+        $semestre = $row["semestre"];
+        $prog_acad = $row["programa_academico"];
+        $estado = $row["estado"];
+    }
+
+    ?>
+
+    <ul class="menu">
+
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>"><br><br>
+
+    <label for="email">Email: </label>
+    <input type="text" id="email" name="email" value="<?php echo $email; ?>"><br><br>
+
+    <label for="direccion">Dirección: </label>
+    <input type="text" id="direccion" name="direccion" value="<?php echo $direccion; ?>"><br><br>
+
+    <label for="telefono">Telefono: </label>
+    <input type="int" id="telefono" name="telefono" value="<?php echo $telefono; ?>"><br><br>
+
+    <label for="genero">Genero: </label>
+    <input type="text" id="genero" name="genero" value="<?php echo $genero; ?>"><br><br>
+
+    <label for="semestre">Semestre: </label>
+    <input type="int" id="semestre" name="semestre" value="<?php echo $semestre; ?>"><br><br>
+
+    <label for="prog_acad">Programa academico: </label>
+    <input type="text" id="prog_acad" name="prog_acad" value="<?php echo $prog_acad; ?>"><br><br>
+
+    <label for="estado">Estado: </label>
+    <input type="text" id="estado" name="estado" value="<?php echo $estado; ?>"><br><br>
+
+    <ul class="centrado">
+    <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Guardar Cambios</button>
+
+    
+</form>
+
+
     <?php
 } else {
     echo "Usuario no encontrado";
 }
 
-$conn->close();
 ?>
-
-            <li><a href = "#">Lista de semilleristas</a></li>
-            <?php
-
-$conexion=mysqli_connect('localhost', 'root', '', 'semillerosudenar');
-
-?>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>mostrar informacion</title>
-</head>
-<body>
-
-<br>
-
-   <table border="1">
-
-        <tr> 
-         <td>identificacion</td>
-         <td>nombre</td>
-         <td>correo</td>
-         <td>direccion</td>
-         <td>telefono</td>
-
-        </tr>
-
-        <?php
-        $sql="SELECT * from semillerista";
-        $result=mysqli_query($conexion,$sql);
-        
-        while($mostrar=mysqli_fetch_array($result)){
-         ?>
-        
-        
-
-        <tr>
-            <td><?php echo $mostrar['identificacion'] ?></td>
-            <td><?php echo $mostrar['nombres_completos'] ?></td>
-            <td><?php echo $mostrar['correo'] ?></td>
-            <td><?php echo $mostrar['direccion'] ?></td>
-            <td><?php echo $mostrar['telefono'] ?></td>
-            
-        </tr>
-    <?php 
-    }
-    ?>   
-  </table> 
-
-</body>
-
-</html>
-            <li><a href = "#">Visualizar semillero(consultar)</a></li>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>mostrar informacion</title>
-</head>
-<body>
-
-<br>
-
-   <table border="1">
-
-        <tr> 
-         <td>identificacion</td>
-         <td>nombre</td>
-         <td>correo</td>
-         <td>direccion</td>
-         <td>telefono</td>
-
-        </tr>
-
-        <?php
-        $sql="SELECT * from semillero";
-        $result=mysqli_query($conexion,$sql);
-        
-        while($mostrar=mysqli_fetch_array($result)){
-         ?>
-        
-        
-
-        <tr>
-            <td><?php echo $mostrar['correo_electronico'] ?></td>
-            <td><?php echo $mostrar['nombres_completos'] ?></td>
-            <td><?php echo $mostrar['descripcion'] ?></td>
-            <td><?php echo $mostrar['mision'] ?></td>
-            <td><?php echo $mostrar['vision'] ?></td>
-            
-        </tr>
-    <?php 
-    }
-    ?>   
-  </table> 
-
-</body>
-
-</html>
-
-            <li><a href = "#">Visualizar evento(consultar)</a></li>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>mostrar informacion</title>
-</head>
-<body>
-
-<br>
-
-   <table border="1">
-
-        <tr> 
-         <td>codigo</td>
-         <td>nombre</td>
-         <td>descripcion</td>
-         <td>lugar</td>
-         <td>clasificacion</td>
-         <td>fecha inicio</td>
-         <td>fecha fin</td>
-
-        </tr>
-
-        <?php
-        $sql="SELECT * from eventos";
-        $result=mysqli_query($conexion,$sql);
-        
-        while($mostrar=mysqli_fetch_array($result)){
-         ?>
-
-        <tr>
-            <td><?php echo $mostrar['codigo'] ?></td>
-            <td><?php echo $mostrar['nombre'] ?></td>
-            <td><?php echo $mostrar['descripcion'] ?></td>
-            <td><?php echo $mostrar['lugar'] ?></td>
-            <td><?php echo $mostrar['clasificacion'] ?></td>
-            <td><?php echo $mostrar['fecha_inicio'] ?></td>
-            <td><?php echo $mostrar['fecha_fin'] ?></td>
-
-        </tr>
-    <?php 
-    }
-    ?>   
-  </table> 
-
-</body>
-
-</html>
-
-            <li><a href = "#">Acerca de</a></li>
-            <li><a href = "#">Contactos</a></li>
-        </ul>
-    <title>Información del Usuario</title>
-</head>
-<body>
-
-
 </body>
 </html>

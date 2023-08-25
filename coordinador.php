@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener los valores del formulario y validarlos
     $nombres = validarCampo($_POST['nombres_completos']);
     $identificacion = validarCampo($_POST['identificacion']);
+    $contrasena = validarCampo($_POST['contrasena']);
     $direccion = validarCampo($_POST['direccion']);
     $telefono = validarCampo($_POST['telefono']);
     $email = validarCampo($_POST['correo_electronico']);
@@ -42,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($identificacion)) {
+        $errores[] = "Todos los campos son obligatorios";
+    }
+
+    if (empty($contrasena)) {
         $errores[] = "Todos los campos son obligatorios";
     }
 
@@ -98,11 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
        
         // Se ingresa la información a la base de datos
-        $sql = "INSERT INTO coordinador VALUES ('$nombres', '$identificacion', '$direccion', '$telefono', '$email', '$genero', '$fechanacimiento', '$programaacademico', '$area', '$fechavinculacion')";
+        $sql = "INSERT INTO coordinador VALUES ('$nombres', '$identificacion', '$contrasena', '$direccion', '$telefono', '$email', '$genero', '$fechanacimiento', '$programaacademico', '$area', '$fechavinculacion')";
 
         if ($conn->query($sql) === TRUE) {
             echo 'coordinador registrado satisfactoriamente';
-            include 'loginsemillero.html';
+            include 'logincoordinador.html';
         } else {
             echo 'Registro fallido';
             echo $conn->error;
